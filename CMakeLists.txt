@@ -13,7 +13,6 @@ include(CMakePackageConfigHelpers)
 include(CTest)
 include(GNUInstallDirs)
 
-find_package(Qt6 REQUIRED)
 find_package(Qt6 REQUIRED COMPONENTS Core)
 
 set(CMAKE_AUTOMOC ON)
@@ -93,9 +92,8 @@ endif()
 
 if (qtpromise.installation)
 
-    install(DIRECTORY /include
+    install(DIRECTORY include/
         DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
-            FILES_MATCHING PATTERN "*.*pp"
     )
 
     install(TARGETS qtpromise EXPORT qtpromiseTargets)
@@ -119,4 +117,15 @@ if (qtpromise.installation)
             "${PROJECT_BINARY_DIR}/qtpromise-config.cmake"
             DESTINATION share/cmake/qtpromise)
 
+    if(NOT SUBPROJECT)
+        set(CPACK_PACKAGE_VENDOR "simonbrunel")
+        set(CPACK_PACKAGE_DESCRIPTION_SUMMARY
+                "QPromise library")
+        set(CMAKE_PROJECT_HOMEPAGE_URL "https://github.com/Servall4/qtpromise")
+        set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
+        set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
+        set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
+        set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
+        include(CPack)
+    endif()
 endif (qtpromise.installation)
