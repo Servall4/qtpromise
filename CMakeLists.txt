@@ -19,7 +19,30 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_library(qtpromise INTERFACE)
+add_definitions(
+    -DQT_DEPRECATED_WARNINGS
+    -DQT_NO_KEYWORDS
+)
+
+set (QTPROMISE_SRCS
+        include/QtPromise
+        src/qtpromise/qpromise.h
+        src/qtpromise/qpromiseconnections.h
+        src/qtpromise/qpromise.inl
+        src/qtpromise/qpromise_p.h
+        src/qtpromise/qpromiseexceptions.h
+        src/qtpromise/qpromisefuture.h
+        src/qtpromise/qpromisehelpers.h
+        src/qtpromise/qpromisehelpers_p.h
+        src/qtpromise/qpromiseresolver.h
+        src/qtpromise/qpromiseglobal.h)
+
+# SHARED Library
+#add_library(qtpromise SHARED ${QTPROMISE_SRCS}})
+#target_compile_definitions(qtpromise PUBLIC QTPROMISE_SHARED_LIB)
+
+# STATIC Library
+add_library(qtpromise STATIC ${QTPROMISE_SRCS})
 add_library(qtpromise::qtpromise ALIAS qtpromise)
 
 target_link_libraries(qtpromise INTERFACE Qt6::Core)
@@ -34,11 +57,6 @@ CMAKE_DEPENDENT_OPTION(qtpromise.installation
         "Include qtpromise in the install set"
         "${INSTALL_SUBPROJECTS}" "subproject" ON)
 mark_as_advanced(qtpromise.installation)
-
-add_definitions(
-    -DQT_DEPRECATED_WARNINGS
-    -DQT_NO_KEYWORDS
-)
 
 # https://github.com/simonbrunel/qtpromise/issues/10
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
