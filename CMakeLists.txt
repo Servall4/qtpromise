@@ -117,6 +117,6 @@ if (qtpromise.installation)
     install(FILES
             "${PROJECT_BINARY_DIR}/qtpromiseConfigVersion.cmake"
             "${PROJECT_BINARY_DIR}/qtpromise-config.cmake"
-            DESTINATION share/cmake/mio)
+            DESTINATION share/cmake/qtpromise)
 
 endif (qtpromise.installation)
