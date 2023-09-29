@@ -25,7 +25,8 @@ add_definitions(
 )
 
 set (QTPROMISE_SRCS
-    include/qpromise_p.h
+        include/QtPromise
+        include/qpromise_p.h
         include/qpromiseglobal.h
         include/qpromiseresolver.h
         include/qpromisehelpers_p.h
@@ -42,7 +43,7 @@ set (QTPROMISE_SRCS
 
 # STATIC Library
 add_library(qtpromise INTERFACE)
-add_library(qtrpomisesrc SHARED ${QTPROMISE_SRCS})
+add_library(qtrpomisesrc STATIC ${QTPROMISE_SRCS})
 add_library(qtpromise::qtpromise ALIAS qtpromise)
 
 #add_library(qtpromise STATIC ${QTPROMISE_SRCS})
