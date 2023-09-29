@@ -115,7 +115,9 @@ if (qtpromise.installation)
 
     install(DIRECTORY include/
         DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
-            FILES_MATCHING PATTERN "*.h" PATTERN "*.inl"
+            PATTERN ".DS_Store" EXCLUDE
+            PATTERN ".txt" EXCLUDE
+
     )
 
     install(TARGETS qtpromise qtpromise-headers EXPORT qtpromiseTargets)
