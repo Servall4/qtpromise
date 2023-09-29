@@ -24,12 +24,25 @@ add_definitions(
     -DQT_NO_KEYWORDS
 )
 
+set (QTPROMISE_SRCS
+    include/qpromise_p.h
+        include/qpromiseglobal.h
+        include/qpromiseresolver.h
+        include/qpromisehelpers_p.h
+        include/qpromisefuture.h
+        include/qpromise.inl
+        include/qpromiseconnections.h
+        include/qpromiseexceptions.h
+        include/qpromisehelpers.h
+        include/qpromise.h
+)
 
 # SHARED Library
 #target_compile_definitions(qtpromise PUBLIC QTPROMISE_SHARED_LIB)
 
 # STATIC Library
 add_library(qtpromise INTERFACE)
+add_library(qtrpomisesrc SHARED ${QTPROMISE_SRCS})
 add_library(qtpromise::qtpromise ALIAS qtpromise)
 
 #add_library(qtpromise STATIC ${QTPROMISE_SRCS})
