@@ -42,7 +42,8 @@ set (QTPROMISE_SRCS
 #target_compile_definitions(qtpromise PUBLIC QTPROMISE_SHARED_LIB)
 
 # STATIC Library
-add_library(qtpromise STATIC ${QTPROMISE_SRCS})
+add_library(qtpromise INTERFACE)
+add_library(qtpromisesrc SHARED ${QTPROMISE_SRCS})
 add_library(qtpromise::qtpromise ALIAS qtpromise)
 
 target_link_libraries(qtpromise INTERFACE Qt6::Core)
