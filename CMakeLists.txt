@@ -37,13 +37,8 @@ set (QTPROMISE_SRCS
         src/qtpromise/qpromiseresolver.h
         src/qtpromise/qpromiseglobal.h)
 
-# SHARED Library
-#add_library(qtpromise SHARED ${QTPROMISE_SRCS}})
-#target_compile_definitions(qtpromise PUBLIC QTPROMISE_SHARED_LIB)
 
-# STATIC Library
 add_library(qtpromise INTERFACE)
-add_library(qtpromisesrc SHARED ${QTPROMISE_SRCS})
 add_library(qtpromise::qtpromise ALIAS qtpromise)
 
 target_link_libraries(qtpromise INTERFACE Qt6::Core)
@@ -52,7 +47,14 @@ string(CONCAT prefix
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>"
         "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
+
 target_include_directories(qtpromise INTERFACE ${prefix})
+
+add_library(qtpromise-headers INTERFACE)
+add_library(qtpromise::qtpromise-headers ALIAS qtpromise-headers)
+target_link_libraries(qtpromise-headers INTERFACE qtpromise)
+
+add_subdirectory(include)
 
 CMAKE_DEPENDENT_OPTION(qtpromise.installation
         "Include qtpromise in the install set"
